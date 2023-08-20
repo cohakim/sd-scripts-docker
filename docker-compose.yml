@@ -1,0 +1,25 @@
+version: '3'
+
+x-var1: &USE_GPU
+  deploy:
+    resources:
+      reservations:
+        devices:
+          - driver: nvidia
+            device_ids: ['all']
+            capabilities: [gpu]
+
+services:
+  download:
+    build: ./services/download
+    volumes:
+      - ./cache:/cache
+  train:
+    build: services/train
+    shm_size: '2gb'      
+    volumes:
+      - ./cache:/cache
+      - ./services:/services      
+      - ./training_data:/training_data
+    entrypoint: /bin/bash -c 'eval "poetry run $(cat /services/train/config/run.command)"'
+    

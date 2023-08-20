@@ -1,0 +1,10 @@
+[general]
+enable_bucket = true
+
+[[datasets]]
+resolution = 512
+
+[[datasets.subsets]]
+image_dir = '/training_data/dataset/teaching_data'
+caption_extension = '.caption'
+num_repeats = 1
