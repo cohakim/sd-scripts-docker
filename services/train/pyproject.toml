@@ -6,29 +6,29 @@ authors = ["Your Name <you@example.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "3.10.9"
+python = "3.10.9" # Fixed for numpy installation
 torch = [
-  { url = "https://download.pytorch.org/whl/torch-2.0.1-cp310-cp310-manylinux2014_aarch64.whl", markers = "sys_platform == 'linux' and platform_machine == 'aarch64'" }
+  { url = "https://download.pytorch.org/whl/cu117/torch-2.0.1%2Bcu117-cp310-cp310-linux_x86_64.whl" }
 ]
-torchvision = "==0.15.2"
-accelerate = "0.15.0"
-transformers = "4.26.0"
+torchvision = [
+  { url = "https://download.pytorch.org/whl/cu117/torchvision-0.15.2%2Bcu117-cp310-cp310-linux_x86_64.whl" }
+]
+xformers = "0.0.21"
+accelerate = "0.19.0"
+diffusers = {version = "0.10.2", extras = ["torch"]}
+transformers = {version = "*", extras = ["torch"]}
 ftfy = "*"
 albumentations = "*"
 opencv-python = "*"
 einops = "*"
-diffusers = {extras = ["torch"], version = "*"}
 pytorch-lightning = "*"
 safetensors = "*"
 easygui = "*"
 toml = "*"
 voluptuous = "*"
 huggingface-hub = "*"
-typing-extensions = "*"
 bitsandbytes = "*"
-tensorflow = "*"
 tensorboard = "*"
-xformers = "0.0.20"
 
 [tool.poetry.group.dev.dependencies]
 

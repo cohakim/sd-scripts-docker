@@ -40,5 +40,5 @@ RUN ln -s /cache/wd-v1-4-convnext-tagger-v2 wd-v1-4-convnext-tagger-v2
 
 COPY pyproject.toml pyproject.toml
 
-# RUN poetry run pip install numpy scikit-learn && poetry add numpy scikit-learn
-RUN poetry install
+RUN --mount=type=cache,target=~/.cache/pypoetry \
+    poetry install

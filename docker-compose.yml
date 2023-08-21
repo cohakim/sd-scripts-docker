@@ -15,11 +15,11 @@ services:
     volumes:
       - ./cache:/cache
   train:
+    <<: *USE_GPU
     build: services/train
     shm_size: '2gb'      
     volumes:
       - ./cache:/cache
       - ./services:/services      
       - ./training_data:/training_data
-    entrypoint: /bin/bash -c 'eval "poetry run $(cat /services/train/config/run.command)"'
-    
+    entrypoint: /bin/bash -c "eval poetry run $(cat /services/train/config/run.command)"
