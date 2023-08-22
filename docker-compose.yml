@@ -14,12 +14,21 @@ services:
     build: ./services/download
     volumes:
       - ./cache:/cache
+  tag:
+    build: ./services/tag
+    environment:
+      - PYTHONPATH=/sd-scripts/library:$PYTHONPATH
+    volumes:
+      - ./cache:/cache
+      - ./services:/services
+      - ./training_data:/training_data
+    entrypoint: /bin/bash -c "eval poetry run $(cat /services/tag/config/run.command)"
   train:
     <<: *USE_GPU
     build: services/train
-    shm_size: '2gb'      
+    shm_size: '2gb'
     volumes:
       - ./cache:/cache
-      - ./services:/services      
+      - ./services:/services
       - ./training_data:/training_data
     entrypoint: /bin/bash -c "eval poetry run $(cat /services/train/config/run.command)"
