@@ -31,13 +31,10 @@ RUN pip install --upgrade pip
 RUN curl -sSL https://install.python-poetry.org | python -
 ENV PATH /root/.local/bin:$PATH
 
-
 RUN git clone https://github.com/kohya-ss/sd-scripts.git -b v0.6.5
 
 WORKDIR /sd-scripts
-RUN mkdir openai && ln -s /cache/openai/clip-vit-large-patch14 openai/clip-vit-large-patch14
-RUN ln -s /cache/wd-v1-4-convnext-tagger-v2 wd-v1-4-convnext-tagger-v2
 
-COPY pyproject.toml pyproject.toml
-RUN --mount=type=cache,target=~/.cache/poetry \
+COPY ./config/* /sd-scripts
+RUN --mount=type=cache,target=~/.cache/pypoetry \
     poetry install
