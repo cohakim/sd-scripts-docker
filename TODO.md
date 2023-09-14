@@ -1,7 +1,4 @@
-- モデルのキャッシュをdockerのdownloadタスクにする
-  - pretrained_model
-  - openai/clip-vit-large-patch14
-  - wd-v1-4-convnext-tagger-v2
-- キャプションファイルの内容を対応するファイルに書き込む
-- キャプションファイルの管理方法について検討する
-- 効果的な学習方法について考える
+- 構成管理ファイル（tag情報記載）をgit管理
+- assets を構成管理ファイルから取得
+- トレーニングモデルを構成管理ファイルから取得
+-

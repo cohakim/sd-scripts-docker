@@ -13,6 +13,10 @@ clean-training-data:
 	cd training_data/dataset/teaching_data && rm -f *.jpg *.jpeg *.png *.webp *.bmp
 	cd training_data/dataset && rm -f retrained_model.safetensors
 
+.PHONY: train
+train:
+	docker compose run --rm train
+
 .PHONY: send-trained-model
 send-trained-model:
 	sudo cp output/mylora.safetensors.safetensors ~/sd/models/Lora/$(TARGET).safetensors

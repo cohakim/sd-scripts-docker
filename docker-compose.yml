@@ -17,11 +17,11 @@ services:
     shm_size: '2gb'
     volumes:
       - sd-scripts:/sd-scripts
+      - ./config:/config
       - ./training_data:/training_data
+      - ./output:/output
     entrypoint: |
-      /bin/bash -c "
-        eval poetry run $(cat /services/train/config/run.command)
-      "
+      /bin/bash -c "eval poetry run $(cat run.command)"
 
 volumes:
   sd-scripts:

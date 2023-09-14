@@ -1,10 +1,10 @@
 
 accelerate launch
-  --config_file accelerate.config
+  --config_file /config/accelerate.config
   --num_cpu_threads_per_process 1
   train_network.py
   --pretrained_model_name_or_path=/training_data/pretrained_model.safetensors
-  --dataset_config=dataset.toml
+  --dataset_config=/config/dataset.toml
   --output_dir="/output"
   --output_name='mylora.safetensors'
   --train_batch_size=1
