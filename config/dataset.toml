@@ -5,6 +5,6 @@ enable_bucket = true
 resolution = 512
 
 [[datasets.subsets]]
-image_dir = '/training_data/dataset/teaching_data'
+image_dir = '/training_data/dataset'
 caption_extension = '.txt'
 num_repeats = 1

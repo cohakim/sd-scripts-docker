@@ -4,14 +4,14 @@ PRETRAINED_MODEL := anylora.safetensors
 
 .PHONY: copy-training-data
 copy-training-data:
-	mkdir -p training_data/dataset/teaching_data
-	cp -n $(ASSETS_PATH)/training_data/dataset/$(TARGET)/teaching_data/* training_data/dataset/teaching_data
+	mkdir -p training_data/dataset
+	cp -Rn $(ASSETS_PATH)/training_data/dataset/$(TARGET) training_data/dataset
 	cp -n $(ASSETS_PATH)/training_data/pretrained_models/$(PRETRAINED_MODEL) training_data/pretrained_model.safetensors
 
 .PHONY: clean-training-data
 clean-training-data:
-	cd training_data/dataset/teaching_data && rm -f *.jpg *.jpeg *.png *.webp *.bmp
-	cd training_data/dataset && rm -f retrained_model.safetensors
+	rm -rf training_data/dataset
+	cd training_data/dataset && rm -f pretrained_model.safetensors
 
 .PHONY: train
 train:
@@ -19,4 +19,4 @@ train:
 
 .PHONY: send-trained-model
 send-trained-model:
-	sudo cp output/mylora.safetensors.safetensors ~/sd/models/Lora/$(TARGET).safetensors
+	sudo cp output/mylora.safetensors ~/sd/models/Lora/$(TARGET).safetensors
