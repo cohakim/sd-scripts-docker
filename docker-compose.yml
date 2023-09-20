@@ -20,7 +20,17 @@ services:
       - ./config:/config
       - ./training_data:/training_data
       - ./output:/output
-    entrypoint: '/bin/bash -c /sd-scripts/entrypoint.sh'
+    environment:
+      - DATASET=$DATASET
+    entrypoint: |
+      /bin/bash -c "
+        poetry run accelerate launch \\
+          --config_file accelerate.config \\
+          --num_cpu_threads_per_process 1 \\
+          train_network.py \\
+          --config_file=/training_data/dataset/$${DATASET}/config.toml \\
+          --dataset_config=/training_data/dataset/$${DATASET}/dataset.toml
+      "
 
 volumes:
   huggingface_cache:

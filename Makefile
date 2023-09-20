@@ -1,23 +1,24 @@
-TARGET           := TARGET_NAME
-ASSETS_PATH      := ~/assets
-PRETRAINED_MODEL := anylora.safetensors
+ASSET_DIR := ~/assets
+SD_DIR    := ~/sd
+DATASET   := DATASET
 
-.PHONY: copy-training-data
-copy-training-data:
-	mkdir -p training_data/dataset/teaching_data
-	cp -n $(ASSETS_PATH)/training_data/dataset/$(TARGET)/**/*.jpg training_data/dataset/teaching_data/
-	cp -n $(ASSETS_PATH)/training_data/dataset/$(TARGET)/**/*.txt training_data/dataset/teaching_data/
-	cp -n $(ASSETS_PATH)/training_data/pretrained_models/$(PRETRAINED_MODEL) training_data/pretrained_model.safetensors
+.PHONY: prepare
+prepare:
+	cp -n $(ASSET_DIR)/training_data/pretrained_models/*.safetensors training_data/pretrained_models/
 
-.PHONY: clean-training-data
-clean-training-data:
-	rm -rf training_data/dataset
-	cd training_data/dataset && rm -f pretrained_model.safetensors
+.PHONY: up
+up:
+ifndef DATASET
+	docker compose run --rm train DATASET=$(DATASET)
+else
+	@echo 'The "DATASET" variable is not set. Defaulting to a zundamon_v0.1.'
+	DATASET=zundamon_v0.1 docker compose run --rm train
+endif
 
-.PHONY: train
-train:
-	docker compose run --rm train
+.PHONY: batch
+batch:
+	/bin/bash batch.sh
 
-.PHONY: send-trained-model
-send-trained-model:
-	sudo cp output/mylora.safetensors ~/sd/models/Lora/$(TARGET).safetensors
+.PHONY: send
+send:
+	sudo cp -n output/*.safetensors $(SD_DIR)/models/Lora/
