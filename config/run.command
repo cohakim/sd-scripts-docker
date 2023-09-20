@@ -4,6 +4,7 @@ accelerate launch
   --num_cpu_threads_per_process 1
   train_network.py
   --pretrained_model_name_or_path=/training_data/pretrained_model.safetensors
+  --tokenizer_cache_dir=/root/.cache/tokenizer_cache
   --dataset_config=/config/dataset.toml
   --output_dir="/output"
   --output_name='mylora'
@@ -25,7 +26,7 @@ accelerate launch
   --persistent_data_loader_worker
   --xformers
   --train_batch_size=1
-  --max_train_epochs=150
+  --max_train_epochs=1
   --learning_rate=1e-4
   --network_dim=128
   --network_alpha=64

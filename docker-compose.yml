@@ -16,22 +16,14 @@ services:
     image: cohakim/sd-scripts:latest
     shm_size: '2gb'
     volumes:
-      - cache:/root/.cache
-      - sd-scripts:/sd-scripts
+      - tokenizer_cache:/root/.cache/tokenizer_cache
       - ./config:/config
       - ./training_data:/training_data
       - ./output:/output
     entrypoint: |
       /bin/bash -c "
-        if [ ! -d "/sd-scripts" ] ; then
-          git clone https://github.com/kohya-ss/sd-scripts.git -b v0.6.5 .
-          cp /config/pyproject.toml /sd-scripts/pyproject.toml
-          poetry install
-        fi
-
         eval poetry run $(cat /config/run.command)
       "
 
 volumes:
-  cache:
-  sd-scripts:
+  tokenizer_cache:
