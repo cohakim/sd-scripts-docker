@@ -38,3 +38,6 @@ WORKDIR /sd-scripts
 COPY pyproject.toml /sd-scripts/pyproject.toml
 RUN --mount=type=cache,target=~/.cache/pypoetry \
   poetry install
+
+COPY accelerate.config /sd-scripts/accelerate.config
+COPY entrypoint.sh /sd-scripts/entrypoint.sh

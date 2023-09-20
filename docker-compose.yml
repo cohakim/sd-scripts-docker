@@ -16,14 +16,11 @@ services:
     image: cohakim/sd-scripts:latest
     shm_size: '2gb'
     volumes:
-      - tokenizer_cache:/root/.cache/tokenizer_cache
+      - huggingface_cache:/root/.cache/huggingface
       - ./config:/config
       - ./training_data:/training_data
       - ./output:/output
-    entrypoint: |
-      /bin/bash -c "
-        eval poetry run $(cat /config/run.command)
-      "
+    entrypoint: '/bin/bash -c /sd-scripts/entrypoint.sh'
 
 volumes:
-  tokenizer_cache:
+  huggingface_cache:
