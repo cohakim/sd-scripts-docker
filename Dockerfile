@@ -31,9 +31,4 @@ RUN pip install --upgrade pip
 RUN curl -sSL https://install.python-poetry.org | python -
 ENV PATH /root/.local/bin:$PATH
 
-RUN git clone https://github.com/kohya-ss/sd-scripts.git -b v0.6.5
-
 WORKDIR /sd-scripts
-COPY pyproject.toml /sd-scripts/
-RUN --mount=type=cache,target=~/.cache/pypoetry \
-    poetry install

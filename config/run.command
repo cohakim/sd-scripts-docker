@@ -6,13 +6,9 @@ accelerate launch
   --pretrained_model_name_or_path=/training_data/pretrained_model.safetensors
   --dataset_config=/config/dataset.toml
   --output_dir="/output"
-  --output_name='mylora.safetensors'
-  --train_batch_size=1
-  --max_train_epochs=5
+  --output_name='mylora'
   --optimizer_type=AdamW8bit
-  --learning_rate=1e-4
-  --network_dim=128
-  --network_alpha=128
+  --enable_bucket
   --bucket_no_upscale
   --lr_scheduler=cosine_with_restarts
   --lr_scheduler_num_cycles=4
@@ -28,3 +24,8 @@ accelerate launch
   --network_module=networks.lora
   --persistent_data_loader_worker
   --xformers
+  --train_batch_size=1
+  --max_train_epochs=150
+  --learning_rate=1e-4
+  --network_dim=128
+  --network_alpha=64

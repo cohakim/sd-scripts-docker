@@ -4,8 +4,9 @@ PRETRAINED_MODEL := anylora.safetensors
 
 .PHONY: copy-training-data
 copy-training-data:
-	mkdir -p training_data/dataset
-	cp -Rn $(ASSETS_PATH)/training_data/dataset/$(TARGET) training_data/dataset
+	mkdir -p training_data/dataset/teaching_data
+	cp -n $(ASSETS_PATH)/training_data/dataset/$(TARGET)/**/*.jpg training_data/dataset/teaching_data/
+	cp -n $(ASSETS_PATH)/training_data/dataset/$(TARGET)/**/*.txt training_data/dataset/teaching_data/
 	cp -n $(ASSETS_PATH)/training_data/pretrained_models/$(PRETRAINED_MODEL) training_data/pretrained_model.safetensors
 
 .PHONY: clean-training-data
