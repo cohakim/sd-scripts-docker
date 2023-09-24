@@ -1,19 +1,13 @@
 ASSET_DIR := ~/assets
 SD_DIR    := ~/sd
-DATASET   := DATASET
 
 .PHONY: prepare
 prepare:
 	cp -n $(ASSET_DIR)/training_data/pretrained_models/*.safetensors training_data/pretrained_models/
 
-.PHONY: up
-up:
-ifndef DATASET
-	docker compose run --rm train DATASET=$(DATASET)
-else
-	@echo 'The "DATASET" variable is not set. Defaulting to a zundamon_v0.1.'
-	DATASET=zundamon_v0.1 docker compose run --rm train
-endif
+.PHONY: train
+train:
+	docker compose run --rm -e DATASET train DATASET=$(DATASET)
 
 .PHONY: batch
 batch:
